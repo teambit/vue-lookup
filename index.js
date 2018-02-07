@@ -7,20 +7,20 @@ module.exports = function(partial, filename, directory, config, webpackConfig, c
   const fileContent = fs.readFileSync(filename);
   const { script, styles } = compiler.parseComponent(fileContent.toString(), { pad: 'line' });
   if (type === 'script') {
-    scriptExt = script.lang || '.js';
+    const scriptExt = script.lang || 'js';
     const scriptResult = cabinet({
       partial: partial,
-      filename: path.basename(filename) + scriptExt,
+      filename: `${path.basename(filename)}.${scriptExt}`,
       directory: directory,
       content: script.content
     });
     return scriptResult;
   }
   const stylesResult = styles.map(style => {
-      const styleExt = (style.lang === 'css' || !style.lang) ? '.scss' : style.lang;
+      const styleExt = (style.lang === 'css' || !style.lang) ? 'scss' : style.lang;
   return cabinet({
     partial: partial,
-    filename: path.basename(filename) + styleExt,
+    filename: `${path.basename(filename)}.${styleExt}`,
     directory: directory,
     content: style.content
   })
