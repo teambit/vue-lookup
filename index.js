@@ -7,14 +7,13 @@ module.exports = function(partial, filename, directory, config, webpackConfig, c
   const fileContent = fs.readFileSync(filename);
   const { script, styles } = compiler.parseComponent(fileContent.toString(), { pad: 'line' });
   if (isScript) {
-    scriptExt = script.lang || '.js';
-    const scriptResult = cabinet({
+    const scriptExt = script.lang || '.js';
+    return cabinet({
       partial: partial,
       filename: path.basename(filename) + scriptExt,
       directory: directory,
       content: script.content
     });
-    return scriptResult;
   }
   const stylesResult = styles.map(style => {
     const styleExt = (style.lang === 'css' || !style.lang) ? '.scss' : style.lang;
