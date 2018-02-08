@@ -8,21 +8,23 @@ module.exports = function(partial, filename, directory, config, webpackConfig, c
   const fileContent = fs.readFileSync(filename);
   const { script, styles } = compiler.parseComponent(fileContent.toString(), { pad: 'line' });
   if (isScript) {
-    const scriptExt = script.lang || '.js';
+    const scriptExt = script.lang || 'js';
     return cabinet({
       partial: partial,
-      filename: `${path.basename(filename)}.${scriptExt}`,
+      filename: filename,
       directory: path.dirname(filename),
-      content: script.content
+      content: script.content,
+      ext: `.${scriptExt}`
     });
   }
   const stylesResult = styles.map(style => {
     const styleExt = (style.lang === 'css' || !style.lang) ? 'scss' : style.lang;
     return cabinet({
       partial: partial,
-      filename: `${path.basename(filename)}.${styleExt}`,
+      filename: filename,
       directory: path.dirname(filename),
-      content: style.content
+      content: style.content,
+      ext: `.${styleExt}`
     })
   });
   return stylesResult[0];
