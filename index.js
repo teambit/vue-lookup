@@ -11,10 +11,10 @@ module.exports = function(partial, filename, directory, config, webpackConfig, c
     const scriptExt = script.lang || 'js';
     return cabinet({
       partial: partial,
-      filename: `${path.parse(filename).name}.${scriptExt}`,
+      filename: filename,
       directory: path.dirname(filename),
       content: script.content,
-      ext: `.${scriptExt}`
+      ext: path.extname(partial) || `.${scriptExt}`
     });
   }
   const stylesResult = styles.map(style => {
