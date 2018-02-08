@@ -11,17 +11,17 @@ module.exports = function(partial, filename, directory, config, webpackConfig, c
     const scriptExt = script.lang || 'js';
     return cabinet({
       partial: partial,
-      filename: filename,
+      filename: `${path.parse(filename).name}.${scriptExt}`,
       directory: path.dirname(filename),
       content: script.content,
       ext: `.${scriptExt}`
     });
   }
   const stylesResult = styles.map(style => {
-    const styleExt = (style.lang === 'css' || !style.lang) ? 'scss' : style.lang;
+    const styleExt = (style.lang === 'css' || !style.lang) ? 'scss'  : style.lang;
     return cabinet({
       partial: partial,
-      filename: filename,
+      filename: `${path.parse(filename).name}.${styleExt}`,
       directory: path.dirname(filename),
       content: style.content,
       ext: `.${styleExt}`
