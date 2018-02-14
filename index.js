@@ -14,7 +14,7 @@ module.exports = function(partial, filename, directory, config, webpackConfig, c
       filename: filename,
       directory: path.dirname(filename),
       content: script.content,
-      ext: path.extname(partial) || `.${scriptExt}`
+      ext: `.${scriptExt}` || path.extname(partial)
     });
   }
   const stylesResult = styles.map(style => {
